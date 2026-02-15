@@ -81,9 +81,9 @@ const AnalyticsPanel = ({
                     style={{
                       width: `${weekdayPattern[i]}%`,
                       background: weekdayPattern[i] > 75
-                        ? '#9EF01A'
+                        ? 'var(--accent)'
                         : weekdayPattern[i] > 40
-                          ? '#7BC214'
+                          ? 'var(--accent-dim)'
                           : 'var(--muted)',
                       borderRadius: '1px',
                       transition: 'width 0.5s ease',
@@ -124,9 +124,9 @@ const AnalyticsPanel = ({
                       style={{
                         height: `${pct}%`,
                         background: pct > 75
-                          ? '#9EF01A'
+                          ? 'var(--accent)'
                           : pct > 40
-                            ? '#7BC214'
+                            ? 'var(--accent-dim)'
                             : pct > 0
                               ? 'var(--muted)'
                               : 'transparent',

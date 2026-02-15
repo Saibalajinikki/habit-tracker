@@ -82,39 +82,13 @@ const MonthKnob = ({ month, year, onMonthChange, onYearChange, playClick }) => {
 
       {/* Knob */}
       <div className="knob-outer" onWheel={handleWheel}>
-        {/* Detent dots */}
+        {/* Month labels (outer ring) */}
         {MONTHS.map((m, i) => {
           const angle = (i / 12) * 360 - 90;
           const rad = angle * (Math.PI / 180);
-          const r = 86;
-          const x = 90 + Math.cos(rad) * r;
-          const y = 90 + Math.sin(rad) * r;
-          const active = i === month;
-          return (
-            <div
-              key={m}
-              className="knob-detent"
-              style={{
-                left: x - 2.5,
-                top: y - 2.5,
-                background: active ? '#9EF01A' : 'var(--muted)',
-                boxShadow: active ? '0 0 6px rgba(158,240,26,0.6)' : 'none',
-              }}
-              onClick={() => {
-                playClick?.('knob');
-                onMonthChange(i);
-              }}
-            />
-          );
-        })}
-
-        {/* Month labels */}
-        {MONTHS.map((m, i) => {
-          const angle = (i / 12) * 360 - 90;
-          const rad = angle * (Math.PI / 180);
-          const r = 72;
-          const x = 90 + Math.cos(rad) * r;
-          const y = 90 + Math.sin(rad) * r;
+          const r = 96;
+          const x = 105 + Math.cos(rad) * r;
+          const y = 105 + Math.sin(rad) * r;
           return (
             <span
               key={`l-${m}`}
@@ -123,7 +97,8 @@ const MonthKnob = ({ month, year, onMonthChange, onYearChange, playClick }) => {
                 left: x,
                 top: y,
                 transform: 'translate(-50%, -50%)',
-                color: i === month ? '#9EF01A' : undefined,
+                color: i === month ? 'var(--accent)' : undefined,
+                fontWeight: i === month ? 700 : 400,
               }}
               onClick={() => {
                 playClick?.('knob');
@@ -132,6 +107,32 @@ const MonthKnob = ({ month, year, onMonthChange, onYearChange, playClick }) => {
             >
               {m}
             </span>
+          );
+        })}
+
+        {/* Detent dots (between labels and knob) */}
+        {MONTHS.map((m, i) => {
+          const angle = (i / 12) * 360 - 90;
+          const rad = angle * (Math.PI / 180);
+          const r = 78;
+          const x = 105 + Math.cos(rad) * r;
+          const y = 105 + Math.sin(rad) * r;
+          const active = i === month;
+          return (
+            <div
+              key={m}
+              className="knob-detent"
+              style={{
+                left: x - 2.5,
+                top: y - 2.5,
+                background: active ? 'var(--accent)' : 'var(--muted)',
+                boxShadow: active ? '0 0 6px color-mix(in srgb, var(--accent) 60%, transparent)' : 'none',
+              }}
+              onClick={() => {
+                playClick?.('knob');
+                onMonthChange(i);
+              }}
+            />
           );
         })}
 

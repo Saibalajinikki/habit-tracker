@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useHabitTracker } from './hooks/useHabitTracker';
 import { useClickSound } from './hooks/useClickSound';
 import { useDarkMode } from './hooks/useDarkMode';
+import { useTheme } from './hooks/useTheme';
 import MonthKnob from './components/MonthKnob';
 import HabitGrid from './components/HabitGrid';
 import AddHabitModal from './components/AddHabitModal';
@@ -9,6 +10,7 @@ import FlipCounter from './components/FlipCounter';
 import VUMeter from './components/VUMeter';
 import StatsPanel from './components/StatsPanel';
 import AnalyticsPanel from './components/AnalyticsPanel';
+import ThemePicker from './components/ThemePicker';
 
 const DAYS = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
 const MONTHS_SHORT = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
@@ -21,6 +23,7 @@ function App() {
 
   const { playClick, enabled: soundEnabled, toggle: toggleSound } = useClickSound();
   const { dark, toggle: toggleDark } = useDarkMode();
+  const { theme, themeId, setTheme, themes } = useTheme();
 
   const {
     habits,
@@ -102,8 +105,9 @@ function App() {
           <h1 className="font-display text-lg font-bold text-te-text tracking-tight">
             HABITFLOW
           </h1>
-          <div className="w-1.5 h-1.5 rounded-full bg-te-accent" style={{
-            boxShadow: '0 0 6px rgba(158,240,26,0.6)',
+          <div className="w-1.5 h-1.5 rounded-full" style={{
+            background: theme.accent,
+            boxShadow: `0 0 6px ${theme.accent}99`,
           }} />
         </div>
 
@@ -112,11 +116,19 @@ function App() {
         </span>
 
         <div className="flex items-center gap-3">
+          {/* Theme picker */}
+          <ThemePicker
+            themes={themes}
+            currentThemeId={themeId}
+            onSelect={setTheme}
+            playClick={playClick}
+          />
+
           {/* Sound toggle */}
           <button
             onClick={() => { toggleSound(); playClick('switch'); }}
             className={`hw-toggle ${soundEnabled ? 'active' : ''}`}
-            title="Toggle sound (S)"
+            title="Toggle sound"
           >
             <div className="pill" />
           </button>
@@ -137,7 +149,7 @@ function App() {
       {/* ── Main Content ── */}
       <main className="flex-1 flex flex-col lg:flex-row gap-8 p-6 overflow-auto">
         {/* Left Panel — Knob + Stats */}
-        <div className="flex flex-col items-center gap-6 lg:w-[220px] flex-shrink-0">
+        <div className="flex flex-col items-center gap-6 lg:w-[240px] flex-shrink-0">
           <MonthKnob
             month={selectedMonth}
             year={selectedYear}

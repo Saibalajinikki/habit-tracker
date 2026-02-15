@@ -11,7 +11,7 @@ const StatsPanel = ({ totalCompleted, completionRate, currentStreak, perfectDays
       {stats.map((s, i) => (
         <div key={i} className="flex items-center gap-2">
           <div className="w-1.5 h-1.5 rounded-full bg-te-accent" style={{
-            boxShadow: '0 0 4px rgba(158,240,26,0.5)',
+            boxShadow: '0 0 4px color-mix(in srgb, var(--accent) 50%, transparent)',
           }} />
           <span className="font-mono text-xs font-bold text-te-text tabular-nums">{s.value}</span>
           <span className="font-mono text-[9px] text-te-muted uppercase tracking-wider">{s.label}</span>

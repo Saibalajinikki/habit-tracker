@@ -5,8 +5,8 @@
    ═══════════════════════════════════════════════ */
 
 @theme {
-  --color-te-accent: #9EF01A;
-  --color-te-accent-dim: #7BC214;
+  --color-te-accent: var(--accent);
+  --color-te-accent-dim: var(--accent-dim);
   --color-te-orange: #FF6600;
   --color-te-bg: var(--bg);
   --color-te-surface: var(--surface);
@@ -19,6 +19,9 @@
 
 /* ── Light Mode (default) ── */
 :root {
+  --accent: #9EF01A;
+  --accent-dim: #7BC214;
+  --accent-hover: #B8F548;
   --bg: #F5F3EE;
   --surface: rgba(255, 255, 255, 0.75);
   --surface-solid: #FFFFFF;
@@ -92,23 +95,23 @@ body::after {
 }
 
 .led.on {
-  background: #9EF01A;
-  border-color: #9EF01A;
-  box-shadow: 0 0 8px rgba(158, 240, 26, 0.5), inset 0 0 4px rgba(255, 255, 255, 0.2);
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--accent) 50%, transparent), inset 0 0 4px rgba(255, 255, 255, 0.2);
 }
 
 .led.on:hover {
-  background: #B8F548;
-  border-color: #B8F548;
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
 }
 
 .led.today {
-  border-color: rgba(158, 240, 26, 0.4);
-  background: rgba(158, 240, 26, 0.08);
+  border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
 }
 
 .led.perfect {
-  box-shadow: 0 0 12px rgba(158, 240, 26, 0.7), 0 0 24px rgba(158, 240, 26, 0.3), inset 0 0 4px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 70%, transparent), 0 0 24px color-mix(in srgb, var(--accent) 30%, transparent), inset 0 0 4px rgba(255, 255, 255, 0.3);
 }
 
 /* ── Hardware Toggle Switch ── */
@@ -137,13 +140,13 @@ body::after {
 }
 
 .hw-toggle.active {
-  background: rgba(158, 240, 26, 0.15);
-  border-color: #9EF01A;
+  background: color-mix(in srgb, var(--accent) 15%, transparent);
+  border-color: var(--accent);
 }
 
 .hw-toggle.active .pill {
   transform: translateX(22px);
-  background: #9EF01A;
+  background: var(--accent);
 }
 
 /* ── VU Meter ── */
@@ -159,7 +162,7 @@ body::after {
   height: 100%;
   background: repeating-linear-gradient(
     90deg,
-    #9EF01A 0px, #9EF01A 4px,
+    var(--accent) 0px, var(--accent) 4px,
     transparent 4px, transparent 6px
   );
   transition: width 0.7s cubic-bezier(0.4, 0, 0.2, 1);
@@ -202,15 +205,15 @@ body::after {
 
 /* ── Rotary Knob ── */
 .knob-outer {
-  width: 180px;
-  height: 180px;
+  width: 210px;
+  height: 210px;
   border-radius: 50%;
   position: relative;
 }
 
 .knob-body {
   position: absolute;
-  inset: 22px;
+  inset: 35px;
   border-radius: 50%;
   background: var(--surface-solid);
   border: 1px solid var(--border);
@@ -235,7 +238,7 @@ body::after {
   transform: translateX(-50%);
   width: 2px;
   height: 14px;
-  background: #9EF01A;
+  background: var(--accent);
   border-radius: 1px;
 }
 
@@ -282,20 +285,20 @@ body::after {
 }
 
 .te-btn:hover {
-  border-color: #9EF01A;
-  color: #9EF01A;
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 .te-btn-primary {
-  background: #9EF01A;
-  border-color: #9EF01A;
+  background: var(--accent);
+  border-color: var(--accent);
   color: #0A0A0A;
   font-weight: 700;
 }
 
 .te-btn-primary:hover {
-  background: #B8F548;
-  border-color: #B8F548;
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
   color: #0A0A0A;
 }
 
@@ -314,7 +317,7 @@ body::after {
 }
 
 .te-input:focus {
-  border-color: #9EF01A;
+  border-color: var(--accent);
 }
 
 .te-input::placeholder {
@@ -340,9 +343,9 @@ body::after {
 .type-btn + .type-btn { border-left: none; }
 
 .type-btn.selected {
-  border-color: #9EF01A;
-  background: rgba(158, 240, 26, 0.1);
-  color: #9EF01A;
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  color: var(--accent);
 }
 
 /* ── Utility ── */
