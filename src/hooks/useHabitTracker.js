@@ -32,7 +32,7 @@ export const useHabitTracker = (year, month, userId) => {
       const entriesMap = {};
       entriesData.forEach(entry => {
         if (!entriesMap[entry.habit_id]) entriesMap[entry.habit_id] = {};
-        entriesMap[entry.habit_id][entry.day] = entry.completed;
+        entriesMap[entry.habit_id][entry.day] = entry.completed ? 1 : 0;
       });
       setEntries(entriesMap);
 
