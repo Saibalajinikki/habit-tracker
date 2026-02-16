@@ -119,7 +119,7 @@ function App() {
   return (
     <div className="min-h-screen flex flex-col bg-te-bg">
       {/* ── Header ── */}
-      <header className="flex items-center justify-between px-6 py-5 border-b border-te-border">
+      <header className="relative flex items-center justify-between px-6 py-5 border-b border-te-border">
         <div className="flex items-center gap-3">
           <h1 className="font-display text-lg font-bold text-te-text tracking-tight">
             HABITFLOW
@@ -130,7 +130,7 @@ function App() {
           }} />
         </div>
 
-        <span className="font-mono text-[10px] text-te-muted tracking-widest uppercase hidden sm:block">
+        <span className="absolute left-1/2 -translate-x-1/2 font-mono text-[10px] text-te-muted tracking-widest uppercase hidden sm:block">
           {dateStr}
         </span>
 
