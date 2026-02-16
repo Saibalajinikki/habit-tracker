@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useAuth } from './contexts/AuthContext';
 import { useHabitTracker } from './hooks/useHabitTracker';
 import { useClickSound } from './hooks/useClickSound';
 import { useDarkMode } from './hooks/useDarkMode';
@@ -11,11 +12,14 @@ import VUMeter from './components/VUMeter';
 import StatsPanel from './components/StatsPanel';
 import AnalyticsPanel from './components/AnalyticsPanel';
 import ThemePicker from './components/ThemePicker';
+import LoginScreen from './components/LoginScreen';
 
 const DAYS = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
 const MONTHS_SHORT = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
 
 function App() {
+  const { user, loading: authLoading, signIn, signOut } = useAuth();
+
   const today = new Date();
   const [selectedYear, setSelectedYear] = useState(today.getFullYear());
   const [selectedMonth, setSelectedMonth] = useState(today.getMonth());
@@ -43,7 +47,7 @@ function App() {
     getWeekdayPattern,
     getYearlyOverview,
     daysInMonth,
-  } = useHabitTracker(selectedYear, selectedMonth);
+  } = useHabitTracker(selectedYear, selectedMonth, user?.uid);
 
   // Keyboard shortcuts
   useEffect(() => {
@@ -86,12 +90,27 @@ function App() {
 
   const dateStr = `${DAYS[today.getDay()]} · ${MONTHS_SHORT[today.getMonth()]} ${today.getDate()} · ${today.getFullYear()}`;
 
-  if (loading) {
+  if (authLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-te-bg">
         <div className="text-center">
           <div className="w-6 h-6 border-2 border-te-accent border-t-transparent rounded-full animate-spin mx-auto" />
           <p className="font-mono text-xs text-te-muted mt-3 uppercase tracking-widest">Initializing</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return <LoginScreen onSignIn={signIn} />;
+  }
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-te-bg">
+        <div className="text-center">
+          <div className="w-6 h-6 border-2 border-te-accent border-t-transparent rounded-full animate-spin mx-auto" />
+          <p className="font-mono text-xs text-te-muted mt-3 uppercase tracking-widest">Loading habits</p>
         </div>
       </div>
     );
@@ -143,6 +162,16 @@ function App() {
             <div className="pill" />
           </button>
           <span className="font-mono text-[9px] text-te-muted uppercase hidden sm:inline">Dark</span>
+
+          {/* Logout */}
+          <div className="w-[1px] h-4 bg-te-border mx-1" />
+          <button
+            onClick={() => { playClick?.('switch'); signOut(); }}
+            className="te-btn px-3 py-1 text-[9px]"
+            title="Sign out"
+          >
+            Logout
+          </button>
         </div>
       </header>
 

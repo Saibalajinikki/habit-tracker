@@ -7,7 +7,7 @@ import {
 const formatDate = (d) =>
   `${d.getFullYear()}-${String(d.getMonth()).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 
-export const useHabitTracker = (year, month) => {
+export const useHabitTracker = (year, month, userId) => {
   const [habits, setHabits] = useState([]);
   const [entries, setEntries] = useState({});
   const [allCompleted, setAllCompleted] = useState(new Map()); // habitId -> Set of "YYYY-MM-DD"
@@ -22,7 +22,8 @@ export const useHabitTracker = (year, month) => {
   const loadData = useCallback(async () => {
     try {
       setLoading(true);
-      await initDB();
+      if (!userId) return;
+      await initDB(userId);
 
       const habitsData = await getHabits();
       setHabits(habitsData);
@@ -49,7 +50,7 @@ export const useHabitTracker = (year, month) => {
       setError(err.message);
       setLoading(false);
     }
-  }, [year, month]);
+  }, [year, month, userId]);
 
   useEffect(() => { loadData(); }, [loadData]);
 
