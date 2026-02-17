@@ -8,43 +8,15 @@ All data stays in your browser via an in-memory SQLite database persisted to loc
 
 - **LED Toggle Grid** — Check off habits with glowing LED-style squares. Perfect days get an extra glow.
 - **Rotary Month Knob** — Drag, scroll, or click to navigate months. Inspired by TE's rotary encoders.
-- **12 Color Schemes** — Switch between palettes from the OP-1, OP-Z, EP-133, OB-4, and more.
+- **12 Color Schemes** — Switch between palettes inspired by the OP-1, OP-Z, EP-133, OB-4, and more.
 - **Dark Mode** — Hardware toggle switch, persisted to localStorage.
 - **Click Sounds** — Procedural audio via Web Audio API. Three variants: toggle, knob, and switch.
 - **Streak Tracking** — Real consecutive-day streaks per habit and overall, with best-streak history.
 - **Analytics Dashboard** — Per-habit VU meters, weekly day-of-week patterns, and yearly overview.
 - **Flip Counter** — Animated odometer-style streak display.
+- **Splash Screen** — Cinematic boot-up animation when the app launches.
 - **Keyboard Shortcuts** — Arrow keys (months), `N` (new habit), `D` (dark mode).
 - **Offline-First** — SQLite via sql.js, fully client-side. Works without internet after first load.
-
-## Color Schemes
-
-| Theme | Inspiration |
-|-------|------------|
-| HabitFlow | Default green |
-| OP-1 | Classic blue encoders |
-| OP-Z | Signal yellow |
-| OP-XY | Record red |
-| EP-133 | Sampler orange |
-| TE Brand | Magenta |
-| OB-4 | Navy |
-| PO-400 | Modular yellow |
-| Off-White | Virgil Abloh collab |
-| PO-20 | Arcade purple |
-| OP-1 Field | Ochre |
-| PO-12 | Rhythm green |
-
-## Tech Stack
-
-| Layer | Technology |
-|-------|-----------|
-| Framework | React 19 |
-| Build | Vite 7 |
-| Styling | Tailwind CSS v4 + CSS custom properties |
-| Database | sql.js (SQLite compiled to WebAssembly) |
-| Animations | GSAP |
-| Audio | Web Audio API (procedural synthesis) |
-| Fonts | Space Grotesk + Space Mono |
 
 ## Getting Started
 
@@ -73,51 +45,17 @@ npm run preview
 
 The `dist/` folder contains the static build, ready to deploy to any static host.
 
-## Project Structure
+## Tech Stack
 
-```
-src/
-  App.jsx                    # Main layout — header, knob panel, grid, footer
-  main.jsx                   # React entry point
-  index.css                  # TE design system — CSS custom properties, components
-  components/
-    AddHabitModal.jsx         # Modal for creating new habits
-    AnalyticsPanel.jsx        # Per-habit cards, weekly pattern, yearly overview
-    FlipCounter.jsx           # Animated odometer digit display
-    HabitGrid.jsx             # LED strip rows with day headers
-    MonthKnob.jsx             # Rotary encoder with drag/scroll/click
-    StatsPanel.jsx            # Footer stats bar
-    ThemePicker.jsx           # Color scheme dropdown selector
-    VUMeter.jsx               # Segmented horizontal completion bar
-  hooks/
-    useClickSound.js          # Web Audio API procedural click synthesis
-    useDarkMode.js            # Dark mode toggle with system preference
-    useHabitTracker.js        # Core data: CRUD, streaks, analytics
-    useTheme.js               # 12 TE color schemes with localStorage
-  utils/
-    database.js               # sql.js wrapper — init, queries, persistence
-```
-
-## Data Storage
-
-HabitFlow uses [sql.js](https://github.com/sql-js/sql.js/) — a full SQLite database compiled to WebAssembly, running entirely in the browser. The database is serialized to `localStorage` after every write.
-
-**Schema:**
-
-- `habits` — id, name, type, created_at, sort_order
-- `habit_entries` — id, habit_id, year, month, day, completed
-
-To export your data, open browser DevTools and run:
-
-```js
-JSON.parse(localStorage.getItem('habitTrackerDB'))
-```
-
-To clear all data:
-
-```js
-localStorage.removeItem('habitTrackerDB')
-```
+| Layer | Technology |
+|-------|-----------|
+| Framework | React 19 |
+| Build | Vite 7 |
+| Styling | Tailwind CSS v4 + CSS custom properties |
+| Database | sql.js (SQLite compiled to WebAssembly) |
+| Animations | GSAP |
+| Audio | Web Audio API (procedural synthesis) |
+| Fonts | Space Grotesk + Space Mono |
 
 ## Deployment
 

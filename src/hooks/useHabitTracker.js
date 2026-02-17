@@ -168,7 +168,7 @@ export const useHabitTracker = (year, month) => {
 
   const getCompletionRate = () => {
     if (habits.length === 0) return 0;
-    const totalPossible = habits.length * currentDay;
+    const totalPossible = habits.length * daysInMonth;
     const totalDone = habits.reduce((sum, h) => sum + getTotal(h.id), 0);
     return totalPossible > 0 ? Math.round((totalDone / totalPossible) * 100) : 0;
   };
@@ -183,17 +183,17 @@ export const useHabitTracker = (year, month) => {
 
   const getTotalCompleted = () => habits.reduce((sum, h) => sum + getTotal(h.id), 0);
 
-  // Per-habit completion rate for current month
+  // Per-habit completion rate for current month (based on full month)
   const getHabitRate = (habitId) => {
-    if (currentDay === 0) return 0;
-    return Math.round((getTotal(habitId) / currentDay) * 100);
+    if (daysInMonth === 0) return 0;
+    return Math.round((getTotal(habitId) / daysInMonth) * 100);
   };
 
   // Weekday pattern: completion rate per day-of-week for current month
   const getWeekdayPattern = () => {
     const counts = Array(7).fill(0);
     const totals = Array(7).fill(0);
-    for (let d = 1; d <= currentDay; d++) {
+    for (let d = 1; d <= daysInMonth; d++) {
       const dow = new Date(year, month, d).getDay();
       totals[dow]++;
       if (isPerfectDay(d)) counts[dow]++;
@@ -212,10 +212,8 @@ export const useHabitTracker = (year, month) => {
       let done = 0;
       let possible = 0;
       const dim = new Date(year, m + 1, 0).getDate();
-      const maxDay = (year === today.getFullYear() && m === today.getMonth())
-        ? Math.min(today.getDate(), dim)
-        : (year < today.getFullYear() || (year === today.getFullYear() && m < today.getMonth()))
-          ? dim : 0;
+      const maxDay = (year < today.getFullYear() || (year === today.getFullYear() && m <= today.getMonth()))
+        ? dim : 0;
       if (maxDay === 0 || habits.length === 0) return 0;
       habits.forEach(h => {
         const dates = allCompleted.get(h.id);

@@ -11,6 +11,7 @@ import VUMeter from './components/VUMeter';
 import StatsPanel from './components/StatsPanel';
 import AnalyticsPanel from './components/AnalyticsPanel';
 import ThemePicker from './components/ThemePicker';
+import SplashScreen from './components/SplashScreen';
 
 const DAYS = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
 const MONTHS_SHORT = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
@@ -20,6 +21,7 @@ function App() {
   const [selectedYear, setSelectedYear] = useState(today.getFullYear());
   const [selectedMonth, setSelectedMonth] = useState(today.getMonth());
   const [showAddModal, setShowAddModal] = useState(false);
+  const [showSplash, setShowSplash] = useState(true);
 
   const { playClick, enabled: soundEnabled, toggle: toggleSound } = useClickSound();
   const { dark, toggle: toggleDark } = useDarkMode();
@@ -85,6 +87,10 @@ function App() {
   const yearlyOverview = getYearlyOverview();
 
   const dateStr = `${DAYS[today.getDay()]} · ${MONTHS_SHORT[today.getMonth()]} ${today.getDate()} · ${today.getFullYear()}`;
+
+  if (showSplash) {
+    return <SplashScreen onComplete={() => setShowSplash(false)} />;
+  }
 
   if (loading) {
     return (
