@@ -1,36 +1,13 @@
 @import "tailwindcss";
 
-/* ═══════════════════════════════════════════════
-   HABITFLOW — Teenage Engineering Design System
-   ═══════════════════════════════════════════════ */
-
-@theme {
-  --color-te-accent: var(--accent);
-  --color-te-accent-dim: var(--accent-dim);
-  --color-te-orange: #FF6600;
-  --color-te-bg: var(--bg);
-  --color-te-surface: var(--surface);
-  --color-te-text: var(--text);
-  --color-te-muted: var(--muted);
-  --color-te-border: var(--border);
-  --font-display: 'Space Grotesk', sans-serif;
-  --font-mono: 'Space Mono', monospace;
-}
-
-/* ── Light Mode (default) ── */
 :root {
-  --accent: #9EF01A;
-  --accent-dim: #7BC214;
-  --accent-hover: #B8F548;
-  --bg: #F5F3EE;
-  --surface: rgba(255, 255, 255, 0.75);
-  --surface-solid: #FFFFFF;
-  --text: #1A1A1A;
-  --muted: #8A8A8A;
-  --border: #E0DDD6;
-  --led-off: #E0DDD6;
-  --led-off-hover: #C8C5BE;
-  --noise-opacity: 0.025;
+  font-family: 'Inter', sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #FAFAFA;
+  color: #1A1A1A;
 }
 
 /* ── Dark Mode ── */
@@ -47,306 +24,57 @@
 }
 
 /* ── Base ── */
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 body {
-  font-family: 'Space Grotesk', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* ── Noise Texture Overlay ── */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 9999;
-  opacity: var(--noise-opacity);
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 256px 256px;
-}
-
-/* ── Scrollbar ── */
-::-webkit-scrollbar { width: 4px; height: 4px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
-
-/* ── LED Toggle ── */
-.led {
-  width: 22px;
-  height: 22px;
-  border-radius: 3px;
-  border: 1px solid var(--led-off);
-  background: transparent;
-  cursor: pointer;
-  transition: all 0.12s ease;
+  margin: 0;
   padding: 0;
-  flex-shrink: 0;
-}
-
-.led:hover {
-  border-color: var(--led-off-hover);
-  background: var(--led-off);
-}
-
-.led.on {
-  background: var(--accent);
-  border-color: var(--accent);
-  box-shadow: 0 0 8px color-mix(in srgb, var(--accent) 50%, transparent), inset 0 0 4px rgba(255, 255, 255, 0.2);
-}
-
-.led.on:hover {
-  background: var(--accent-hover);
-  border-color: var(--accent-hover);
-}
-
-.led.today {
-  border-color: color-mix(in srgb, var(--accent) 40%, transparent);
-  background: color-mix(in srgb, var(--accent) 8%, transparent);
-}
-
-.led.perfect {
-  box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 70%, transparent), 0 0 24px color-mix(in srgb, var(--accent) 30%, transparent), inset 0 0 4px rgba(255, 255, 255, 0.3);
-}
-
-/* ── Hardware Toggle Switch ── */
-.hw-toggle {
-  width: 44px;
-  height: 22px;
-  border-radius: 3px;
-  background: var(--led-off);
-  border: 1px solid var(--border);
-  position: relative;
-  cursor: pointer;
-  transition: background 0.3s;
-  padding: 0;
-  flex-shrink: 0;
-}
-
-.hw-toggle .pill {
-  width: 18px;
-  height: 18px;
-  border-radius: 2px;
-  background: var(--text);
-  position: absolute;
-  top: 1px;
-  left: 1px;
-  transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-}
-
-.hw-toggle.active {
-  background: color-mix(in srgb, var(--accent) 15%, transparent);
-  border-color: var(--accent);
-}
-
-.hw-toggle.active .pill {
-  transform: translateX(22px);
-  background: var(--accent);
-}
-
-/* ── VU Meter ── */
-.vu-meter {
-  height: 10px;
-  background: var(--led-off);
-  border-radius: 2px;
+  width: 100vw;
+  height: 100vh;
   overflow: hidden;
-  position: relative;
 }
 
-.vu-fill {
-  height: 100%;
-  background: repeating-linear-gradient(
-    90deg,
-    var(--accent) 0px, var(--accent) 4px,
-    transparent 4px, transparent 6px
-  );
-  transition: width 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-  border-radius: 2px;
+/* Modern Utilities */
+@layer components {
+  .modern-card {
+    @apply bg-white rounded-2xl shadow-sm border border-black/5 backdrop-blur-xl;
+  }
+
+  .glass-panel {
+    @apply bg-white/80 backdrop-blur-lg border border-white/20 shadow-lg;
+  }
+
+  .interactive-hover {
+    @apply transition-all duration-300 ease-out hover:scale-[1.02] active:scale-[0.98];
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
 
-.vu-mark {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  background: var(--border);
+/* Animations */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
-/* ── Flip Counter ── */
-.flip-digit {
-  width: 28px;
-  height: 40px;
-  background: var(--surface-solid);
-  border: 1px solid var(--border);
-  border-radius: 3px;
-  overflow: hidden;
-  position: relative;
+.animate-float {
+  animation: float 6s ease-in-out infinite;
 }
-
-.flip-digit-inner {
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.flip-digit-line {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  height: 1px;
-  background: var(--border);
-  opacity: 0.5;
-  pointer-events: none;
-}
-
-/* ── Rotary Knob ── */
-.knob-outer {
-  width: 210px;
-  height: 210px;
-  border-radius: 50%;
-  position: relative;
-}
-
-.knob-body {
-  position: absolute;
-  inset: 35px;
-  border-radius: 50%;
-  background: var(--surface-solid);
-  border: 1px solid var(--border);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), inset 0 1px 2px rgba(255, 255, 255, 0.5);
-  cursor: grab;
-  transition: box-shadow 0.2s;
-}
-
-.knob-body:active {
-  cursor: grabbing;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1), inset 0 1px 2px rgba(255, 255, 255, 0.5);
-}
-
-.dark .knob-body {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.05);
-}
-
-.knob-indicator {
-  position: absolute;
-  top: 6px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 2px;
-  height: 14px;
-  background: var(--accent);
-  border-radius: 1px;
-}
-
-.knob-cap {
-  position: absolute;
-  inset: 35%;
-  border-radius: 50%;
-  background: var(--surface-solid);
-  border: 1px solid var(--border);
-}
-
-.knob-detent {
-  position: absolute;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  transition: all 0.2s;
-}
-
-.knob-label {
-  position: absolute;
-  font-family: 'Space Mono', monospace;
-  font-size: 9px;
-  font-weight: 700;
-  color: var(--muted);
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  user-select: none;
-}
-
-/* ── Button Styles ── */
-.te-btn {
-  font-family: 'Space Mono', monospace;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  padding: 8px 16px;
-  border: 1px solid var(--border);
-  background: transparent;
-  color: var(--text);
-  cursor: pointer;
-  transition: all 0.2s;
-  border-radius: 3px;
-}
-
-.te-btn:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-}
-
-.te-btn-primary {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #0A0A0A;
-  font-weight: 700;
-}
-
-.te-btn-primary:hover {
-  background: var(--accent-hover);
-  border-color: var(--accent-hover);
-  color: #0A0A0A;
-}
-
-/* ── Input ── */
-.te-input {
-  font-family: 'Space Mono', monospace;
-  font-size: 13px;
-  padding: 10px 14px;
-  border: 1px solid var(--border);
-  background: var(--surface-solid);
-  color: var(--text);
-  border-radius: 3px;
-  outline: none;
-  width: 100%;
-  transition: border-color 0.2s;
-}
-
-.te-input:focus {
-  border-color: var(--accent);
-}
-
-.te-input::placeholder {
-  color: var(--muted);
-}
-
-/* ── Type Selector Buttons ── */
-.type-btn {
-  font-family: 'Space Mono', monospace;
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  padding: 6px 12px;
-  border: 1px solid var(--border);
-  background: transparent;
-  color: var(--muted);
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.type-btn:first-child { border-radius: 3px 0 0 3px; }
-.type-btn:last-child { border-radius: 0 3px 3px 0; }
-.type-btn + .type-btn { border-left: none; }
-
-.type-btn.selected {
-  border-color: var(--accent);
-  background: color-mix(in srgb, var(--accent) 10%, transparent);
-  color: var(--accent);
-}
-
-/* ── Utility ── */
-.tabular-nums { font-variant-numeric: tabular-nums; }
