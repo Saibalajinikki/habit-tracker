@@ -13,7 +13,6 @@ import VUMeter from './components/VUMeter';
 import StatsPanel from './components/StatsPanel';
 import AnalyticsPanel from './components/AnalyticsPanel';
 import ThemePicker from './components/ThemePicker';
-import SplashScreen from './components/SplashScreen';
 import LoginScreen from './components/LoginScreen';
 
 const DAYS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
@@ -42,7 +41,6 @@ function App() {
   const [selectedYear, setSelectedYear] = useState(today.getFullYear());
   const [selectedMonth, setSelectedMonth] = useState(today.getMonth());
   const [showAddModal, setShowAddModal] = useState(false);
-  const [showSplash, setShowSplash] = useState(true);
 
   const { playClick, enabled: soundEnabled, toggle: toggleSound } = useClickSound();
   const { dark, toggle: toggleDark } = useDarkMode();
@@ -110,10 +108,6 @@ function App() {
   const dateStr = `${DAYS[today.getDay()]} · ${MONTHS_SHORT[today.getMonth()]} ${today.getDate()} · ${today.getFullYear()}`;
   const greeting = getTimeGreeting();
   const [motd] = useState(() => GREETINGS[Math.floor(Math.random() * GREETINGS.length)]);
-
-  if (showSplash) {
-    return <SplashScreen onComplete={() => setShowSplash(false)} />;
-  }
 
   if (authLoading) {
     return (
